@@ -10,5 +10,5 @@ import java.io.FileNotFoundException;
  * @return
  */
 public interface IRabbitmqConsumer {
-    public Message processQueue13(String data) throws FileNotFoundException;
+    public void processQueue13(String data) throws FileNotFoundException;
 }

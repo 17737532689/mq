@@ -39,7 +39,7 @@ public class RabbitSendImpl extends  BaseService implements  IRabbitSend  {
             if(CommonUtil.nullBank(d.getCar_picture())){
                 d.setCar_picture(null);
             }
-            log.info("生产者分钟"+d);
+          //  log.info("生产者分钟"+d);
         }
         message.setCount(200);
         message.setMsg("success");

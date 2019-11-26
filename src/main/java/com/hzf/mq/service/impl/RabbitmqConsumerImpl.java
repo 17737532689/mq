@@ -10,6 +10,7 @@ import com.hzf.mq.enums.Result;
 import com.hzf.mq.service.IRabbitmqConsumer;
 import com.hzf.mq.util.*;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.amqp.rabbit.annotation.RabbitHandler;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -47,8 +48,9 @@ public class RabbitmqConsumerImpl  extends  BaseService implements IRabbitmqCons
     private String NO;
     @Value("${air.SMOKE}")
     private String SMOKE;
+    @RabbitHandler
     @RabbitListener(queues = "queue_test_one")
-    public Message processQueue13(String data) throws FileNotFoundException {
+    public void processQueue13(String data) throws FileNotFoundException {
         //  log.info(String.format("%s %s","消费者分钟："+record.value(),"话题："+record.topic()));
         Message message = new Message();
         Gson gson =new Gson();
@@ -63,17 +65,14 @@ public class RabbitmqConsumerImpl  extends  BaseService implements IRabbitmqCons
             if(flag==false){
                 message.setCount(201);
                 message.setMsg("error");
-                return message;
+                System.out.println("插入实时数据失败");
             }else {
                 dataMinCars.setCar_picture(null);
-                log.info(String.format("%s %s","消费者分钟："+ dataMinCars));
+                System.out.println("消费"+dataMinCars);
+                //log.info(String.format("%s %s","消费者分钟："+ dataMinCars));
             }
 
         }
-
-        message.setCount(200);
-        message.setMsg("success");
-        return message;
     }
 
     public DAttachmentRes imgPath(DAttachmentRes dAttachmentRes, String url, String imgStr, DResRealtime dResRealtime) {

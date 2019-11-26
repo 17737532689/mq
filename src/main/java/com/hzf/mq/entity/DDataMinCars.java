@@ -292,4 +292,39 @@ public class DDataMinCars {
     public void setCar_picture(String car_picture) {
         this.car_picture = car_picture == null ? null : car_picture.trim();
     }
+
+    @Override
+    public String toString() {
+        return "DDataMinCars{" +
+                "id=" + id +
+                ", station_id='" + station_id + '\'' +
+                ", data_code='" + data_code + '\'' +
+                ", test_time='" + test_time + '\'' +
+                ", plate_umber='" + plate_umber + '\'' +
+                ", plate_color='" + plate_color + '\'' +
+                ", car_speed=" + car_speed +
+                ", car_accel=" + car_accel +
+                ", car_vsp=" + car_vsp +
+                ", no_data=" + no_data +
+                ", co2_data=" + co2_data +
+                ", co_data=" + co_data +
+                ", hc_data=" + hc_data +
+                ", pm_data=" + pm_data +
+                ", wind_speed=" + wind_speed +
+                ", wind_direction=" + wind_direction +
+                ", temp=" + temp +
+                ", hum=" + hum +
+                ", pressure=" + pressure +
+                ", test_address='" + test_address + '\'' +
+                ", road_way='" + road_way + '\'' +
+                ", test_result='" + test_result + '\'' +
+                ", is_black='" + is_black + '\'' +
+                ", car_type='" + car_type + '\'' +
+                ", created_at=" + created_at +
+                ", updated_at=" + updated_at +
+                ", picture_url='" + picture_url + '\'' +
+                ", tele_times='" + tele_times + '\'' +
+                ", car_picture='" + car_picture + '\'' +
+                '}';
+    }
 }

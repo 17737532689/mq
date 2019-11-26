@@ -170,7 +170,7 @@
       #{OAC,jdbcType=VARCHAR}, #{CONFIDENCE,jdbcType=VARCHAR}, #{VALIDITY,jdbcType=INTEGER}, 
       #{CREATED_TIME,jdbcType=TIMESTAMP}, #{CREATED_USER,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.hzf.mq.entity.DResRealtime" >
+  <insert id="insertSelective" parameterType="com.hzf.mq.entity.DResRealtime" useGeneratedKeys="true" keyProperty="ID">
     insert into d_res_realtime
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="ID != null" >
