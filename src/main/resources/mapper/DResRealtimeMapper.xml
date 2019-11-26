@@ -1,0 +1,794 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hzf.mq.dao.DResRealtimeMapper" >
+  <resultMap id="BaseResultMap" type="com.hzf.mq.entity.DResRealtime" >
+    <id column="ID" property="ID" jdbcType="INTEGER" />
+    <result column="TS_NO" property="TS_NO" jdbcType="VARCHAR" />
+    <result column="LINE" property="LINE" jdbcType="VARCHAR" />
+    <result column="LANE" property="LANE" jdbcType="VARCHAR" />
+    <result column="LICENSE" property="LICENSE" jdbcType="VARCHAR" />
+    <result column="LICENSE_CODE" property="LICENSE_CODE" jdbcType="VARCHAR" />
+    <result column="LICENSE_TYPE" property="LICENSE_TYPE" jdbcType="VARCHAR" />
+    <result column="VEHICAL_COLOR" property="VEHICAL_COLOR" jdbcType="VARCHAR" />
+    <result column="VEHICAL_TYPE" property="VEHICAL_TYPE" jdbcType="VARCHAR" />
+    <result column="FUEL_TYPE" property="FUEL_TYPE" jdbcType="INTEGER" />
+    <result column="MONITOR_TIME" property="MONITOR_TIME" jdbcType="TIMESTAMP" />
+    <result column="RESULT" property="RESULT" jdbcType="INTEGER" />
+    <result column="CS" property="CS" jdbcType="VARCHAR" />
+    <result column="JSD" property="JSD" jdbcType="VARCHAR" />
+    <result column="CSCD" property="CSCD" jdbcType="VARCHAR" />
+    <result column="CO2" property="CO2" jdbcType="VARCHAR" />
+    <result column="CO" property="CO" jdbcType="DOUBLE" />
+    <result column="CO_LIMIT" property="CO_LIMIT" jdbcType="VARCHAR" />
+    <result column="CO_JUDG" property="CO_JUDG" jdbcType="INTEGER" />
+    <result column="HC" property="HC" jdbcType="VARCHAR" />
+    <result column="HC_LIMIT" property="HC_LIMIT" jdbcType="VARCHAR" />
+    <result column="HC_JUDG" property="HC_JUDG" jdbcType="INTEGER" />
+    <result column="NO" property="NO" jdbcType="VARCHAR" />
+    <result column="NO_LIMIT" property="NO_LIMIT" jdbcType="VARCHAR" />
+    <result column="NO_JUDG" property="NO_JUDG" jdbcType="VARCHAR" />
+    <result column="CO_CO2" property="CO_CO2" jdbcType="DECIMAL" />
+    <result column="HC_CO2" property="HC_CO2" jdbcType="DECIMAL" />
+    <result column="NO_CO2" property="NO_CO2" jdbcType="DECIMAL" />
+    <result column="SMOKE" property="SMOKE" jdbcType="VARCHAR" />
+    <result column="SMOKE_LIMIT" property="SMOKE_LIMIT" jdbcType="VARCHAR" />
+    <result column="SMOKE_JUDG" property="SMOKE_JUDG" jdbcType="INTEGER" />
+    <result column="VSP" property="VSP" jdbcType="DECIMAL" />
+    <result column="WIND_SPEED" property="WIND_SPEED" jdbcType="VARCHAR" />
+    <result column="WIND_DIRECTION" property="WIND_DIRECTION" jdbcType="REAL" />
+    <result column="TEMPERATURE" property="TEMPERATURE" jdbcType="VARCHAR" />
+    <result column="HUMIDITY" property="HUMIDITY" jdbcType="VARCHAR" />
+    <result column="ATMOSPHERE" property="ATMOSPHERE" jdbcType="VARCHAR" />
+    <result column="OAC" property="OAC" jdbcType="VARCHAR" />
+    <result column="CONFIDENCE" property="CONFIDENCE" jdbcType="VARCHAR" />
+    <result column="VALIDITY" property="VALIDITY" jdbcType="INTEGER" />
+    <result column="CREATED_TIME" property="CREATED_TIME" jdbcType="TIMESTAMP" />
+    <result column="CREATED_USER" property="CREATED_USER" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, TS_NO, LINE, LANE, LICENSE, LICENSE_CODE, LICENSE_TYPE, VEHICAL_COLOR, VEHICAL_TYPE, 
+    FUEL_TYPE, MONITOR_TIME, RESULT, CS, JSD, CSCD, CO2, CO, CO_LIMIT, CO_JUDG, HC, HC_LIMIT, 
+    HC_JUDG, NO, NO_LIMIT, NO_JUDG, CO_CO2, HC_CO2, NO_CO2, SMOKE, SMOKE_LIMIT, SMOKE_JUDG, 
+    VSP, WIND_SPEED, WIND_DIRECTION, TEMPERATURE, HUMIDITY, ATMOSPHERE, OAC, CONFIDENCE, 
+    VALIDITY, CREATED_TIME, CREATED_USER
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hzf.mq.entity.DResRealtimeExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from d_res_realtime
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from d_res_realtime
+    where ID = #{ID,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from d_res_realtime
+    where ID = #{ID,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.hzf.mq.entity.DResRealtimeExample" >
+    delete from d_res_realtime
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hzf.mq.entity.DResRealtime" >
+    insert into d_res_realtime (ID, TS_NO, LINE, 
+      LANE, LICENSE, LICENSE_CODE, 
+      LICENSE_TYPE, VEHICAL_COLOR, VEHICAL_TYPE, 
+      FUEL_TYPE, MONITOR_TIME, RESULT, 
+      CS, JSD, CSCD, CO2, 
+      CO, CO_LIMIT, CO_JUDG, 
+      HC, HC_LIMIT, HC_JUDG, 
+      NO, NO_LIMIT, NO_JUDG, 
+      CO_CO2, HC_CO2, NO_CO2, 
+      SMOKE, SMOKE_LIMIT, SMOKE_JUDG, 
+      VSP, WIND_SPEED, WIND_DIRECTION, 
+      TEMPERATURE, HUMIDITY, ATMOSPHERE, 
+      OAC, CONFIDENCE, VALIDITY, 
+      CREATED_TIME, CREATED_USER)
+    values (#{ID,jdbcType=INTEGER}, #{TS_NO,jdbcType=VARCHAR}, #{LINE,jdbcType=VARCHAR}, 
+      #{LANE,jdbcType=VARCHAR}, #{LICENSE,jdbcType=VARCHAR}, #{LICENSE_CODE,jdbcType=VARCHAR}, 
+      #{LICENSE_TYPE,jdbcType=VARCHAR}, #{VEHICAL_COLOR,jdbcType=VARCHAR}, #{VEHICAL_TYPE,jdbcType=VARCHAR}, 
+      #{FUEL_TYPE,jdbcType=INTEGER}, #{MONITOR_TIME,jdbcType=TIMESTAMP}, #{RESULT,jdbcType=INTEGER}, 
+      #{CS,jdbcType=VARCHAR}, #{JSD,jdbcType=VARCHAR}, #{CSCD,jdbcType=VARCHAR}, #{CO2,jdbcType=VARCHAR}, 
+      #{CO,jdbcType=DOUBLE}, #{CO_LIMIT,jdbcType=VARCHAR}, #{CO_JUDG,jdbcType=INTEGER}, 
+      #{HC,jdbcType=VARCHAR}, #{HC_LIMIT,jdbcType=VARCHAR}, #{HC_JUDG,jdbcType=INTEGER}, 
+      #{NO,jdbcType=VARCHAR}, #{NO_LIMIT,jdbcType=VARCHAR}, #{NO_JUDG,jdbcType=VARCHAR}, 
+      #{CO_CO2,jdbcType=DECIMAL}, #{HC_CO2,jdbcType=DECIMAL}, #{NO_CO2,jdbcType=DECIMAL}, 
+      #{SMOKE,jdbcType=VARCHAR}, #{SMOKE_LIMIT,jdbcType=VARCHAR}, #{SMOKE_JUDG,jdbcType=INTEGER}, 
+      #{VSP,jdbcType=DECIMAL}, #{WIND_SPEED,jdbcType=VARCHAR}, #{WIND_DIRECTION,jdbcType=REAL}, 
+      #{TEMPERATURE,jdbcType=VARCHAR}, #{HUMIDITY,jdbcType=VARCHAR}, #{ATMOSPHERE,jdbcType=VARCHAR}, 
+      #{OAC,jdbcType=VARCHAR}, #{CONFIDENCE,jdbcType=VARCHAR}, #{VALIDITY,jdbcType=INTEGER}, 
+      #{CREATED_TIME,jdbcType=TIMESTAMP}, #{CREATED_USER,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hzf.mq.entity.DResRealtime" >
+    insert into d_res_realtime
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="ID != null" >
+        ID,
+      </if>
+      <if test="TS_NO != null" >
+        TS_NO,
+      </if>
+      <if test="LINE != null" >
+        LINE,
+      </if>
+      <if test="LANE != null" >
+        LANE,
+      </if>
+      <if test="LICENSE != null" >
+        LICENSE,
+      </if>
+      <if test="LICENSE_CODE != null" >
+        LICENSE_CODE,
+      </if>
+      <if test="LICENSE_TYPE != null" >
+        LICENSE_TYPE,
+      </if>
+      <if test="VEHICAL_COLOR != null" >
+        VEHICAL_COLOR,
+      </if>
+      <if test="VEHICAL_TYPE != null" >
+        VEHICAL_TYPE,
+      </if>
+      <if test="FUEL_TYPE != null" >
+        FUEL_TYPE,
+      </if>
+      <if test="MONITOR_TIME != null" >
+        MONITOR_TIME,
+      </if>
+      <if test="RESULT != null" >
+        RESULT,
+      </if>
+      <if test="CS != null" >
+        CS,
+      </if>
+      <if test="JSD != null" >
+        JSD,
+      </if>
+      <if test="CSCD != null" >
+        CSCD,
+      </if>
+      <if test="CO2 != null" >
+        CO2,
+      </if>
+      <if test="CO != null" >
+        CO,
+      </if>
+      <if test="CO_LIMIT != null" >
+        CO_LIMIT,
+      </if>
+      <if test="CO_JUDG != null" >
+        CO_JUDG,
+      </if>
+      <if test="HC != null" >
+        HC,
+      </if>
+      <if test="HC_LIMIT != null" >
+        HC_LIMIT,
+      </if>
+      <if test="HC_JUDG != null" >
+        HC_JUDG,
+      </if>
+      <if test="NO != null" >
+        NO,
+      </if>
+      <if test="NO_LIMIT != null" >
+        NO_LIMIT,
+      </if>
+      <if test="NO_JUDG != null" >
+        NO_JUDG,
+      </if>
+      <if test="CO_CO2 != null" >
+        CO_CO2,
+      </if>
+      <if test="HC_CO2 != null" >
+        HC_CO2,
+      </if>
+      <if test="NO_CO2 != null" >
+        NO_CO2,
+      </if>
+      <if test="SMOKE != null" >
+        SMOKE,
+      </if>
+      <if test="SMOKE_LIMIT != null" >
+        SMOKE_LIMIT,
+      </if>
+      <if test="SMOKE_JUDG != null" >
+        SMOKE_JUDG,
+      </if>
+      <if test="VSP != null" >
+        VSP,
+      </if>
+      <if test="WIND_SPEED != null" >
+        WIND_SPEED,
+      </if>
+      <if test="WIND_DIRECTION != null" >
+        WIND_DIRECTION,
+      </if>
+      <if test="TEMPERATURE != null" >
+        TEMPERATURE,
+      </if>
+      <if test="HUMIDITY != null" >
+        HUMIDITY,
+      </if>
+      <if test="ATMOSPHERE != null" >
+        ATMOSPHERE,
+      </if>
+      <if test="OAC != null" >
+        OAC,
+      </if>
+      <if test="CONFIDENCE != null" >
+        CONFIDENCE,
+      </if>
+      <if test="VALIDITY != null" >
+        VALIDITY,
+      </if>
+      <if test="CREATED_TIME != null" >
+        CREATED_TIME,
+      </if>
+      <if test="CREATED_USER != null" >
+        CREATED_USER,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="ID != null" >
+        #{ID,jdbcType=INTEGER},
+      </if>
+      <if test="TS_NO != null" >
+        #{TS_NO,jdbcType=VARCHAR},
+      </if>
+      <if test="LINE != null" >
+        #{LINE,jdbcType=VARCHAR},
+      </if>
+      <if test="LANE != null" >
+        #{LANE,jdbcType=VARCHAR},
+      </if>
+      <if test="LICENSE != null" >
+        #{LICENSE,jdbcType=VARCHAR},
+      </if>
+      <if test="LICENSE_CODE != null" >
+        #{LICENSE_CODE,jdbcType=VARCHAR},
+      </if>
+      <if test="LICENSE_TYPE != null" >
+        #{LICENSE_TYPE,jdbcType=VARCHAR},
+      </if>
+      <if test="VEHICAL_COLOR != null" >
+        #{VEHICAL_COLOR,jdbcType=VARCHAR},
+      </if>
+      <if test="VEHICAL_TYPE != null" >
+        #{VEHICAL_TYPE,jdbcType=VARCHAR},
+      </if>
+      <if test="FUEL_TYPE != null" >
+        #{FUEL_TYPE,jdbcType=INTEGER},
+      </if>
+      <if test="MONITOR_TIME != null" >
+        #{MONITOR_TIME,jdbcType=TIMESTAMP},
+      </if>
+      <if test="RESULT != null" >
+        #{RESULT,jdbcType=INTEGER},
+      </if>
+      <if test="CS != null" >
+        #{CS,jdbcType=VARCHAR},
+      </if>
+      <if test="JSD != null" >
+        #{JSD,jdbcType=VARCHAR},
+      </if>
+      <if test="CSCD != null" >
+        #{CSCD,jdbcType=VARCHAR},
+      </if>
+      <if test="CO2 != null" >
+        #{CO2,jdbcType=VARCHAR},
+      </if>
+      <if test="CO != null" >
+        #{CO,jdbcType=DOUBLE},
+      </if>
+      <if test="CO_LIMIT != null" >
+        #{CO_LIMIT,jdbcType=VARCHAR},
+      </if>
+      <if test="CO_JUDG != null" >
+        #{CO_JUDG,jdbcType=INTEGER},
+      </if>
+      <if test="HC != null" >
+        #{HC,jdbcType=VARCHAR},
+      </if>
+      <if test="HC_LIMIT != null" >
+        #{HC_LIMIT,jdbcType=VARCHAR},
+      </if>
+      <if test="HC_JUDG != null" >
+        #{HC_JUDG,jdbcType=INTEGER},
+      </if>
+      <if test="NO != null" >
+        #{NO,jdbcType=VARCHAR},
+      </if>
+      <if test="NO_LIMIT != null" >
+        #{NO_LIMIT,jdbcType=VARCHAR},
+      </if>
+      <if test="NO_JUDG != null" >
+        #{NO_JUDG,jdbcType=VARCHAR},
+      </if>
+      <if test="CO_CO2 != null" >
+        #{CO_CO2,jdbcType=DECIMAL},
+      </if>
+      <if test="HC_CO2 != null" >
+        #{HC_CO2,jdbcType=DECIMAL},
+      </if>
+      <if test="NO_CO2 != null" >
+        #{NO_CO2,jdbcType=DECIMAL},
+      </if>
+      <if test="SMOKE != null" >
+        #{SMOKE,jdbcType=VARCHAR},
+      </if>
+      <if test="SMOKE_LIMIT != null" >
+        #{SMOKE_LIMIT,jdbcType=VARCHAR},
+      </if>
+      <if test="SMOKE_JUDG != null" >
+        #{SMOKE_JUDG,jdbcType=INTEGER},
+      </if>
+      <if test="VSP != null" >
+        #{VSP,jdbcType=DECIMAL},
+      </if>
+      <if test="WIND_SPEED != null" >
+        #{WIND_SPEED,jdbcType=VARCHAR},
+      </if>
+      <if test="WIND_DIRECTION != null" >
+        #{WIND_DIRECTION,jdbcType=REAL},
+      </if>
+      <if test="TEMPERATURE != null" >
+        #{TEMPERATURE,jdbcType=VARCHAR},
+      </if>
+      <if test="HUMIDITY != null" >
+        #{HUMIDITY,jdbcType=VARCHAR},
+      </if>
+      <if test="ATMOSPHERE != null" >
+        #{ATMOSPHERE,jdbcType=VARCHAR},
+      </if>
+      <if test="OAC != null" >
+        #{OAC,jdbcType=VARCHAR},
+      </if>
+      <if test="CONFIDENCE != null" >
+        #{CONFIDENCE,jdbcType=VARCHAR},
+      </if>
+      <if test="VALIDITY != null" >
+        #{VALIDITY,jdbcType=INTEGER},
+      </if>
+      <if test="CREATED_TIME != null" >
+        #{CREATED_TIME,jdbcType=TIMESTAMP},
+      </if>
+      <if test="CREATED_USER != null" >
+        #{CREATED_USER,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hzf.mq.entity.DResRealtimeExample" resultType="java.lang.Integer" >
+    select count(*) from d_res_realtime
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update d_res_realtime
+    <set >
+      <if test="record.ID != null" >
+        ID = #{record.ID,jdbcType=INTEGER},
+      </if>
+      <if test="record.TS_NO != null" >
+        TS_NO = #{record.TS_NO,jdbcType=VARCHAR},
+      </if>
+      <if test="record.LINE != null" >
+        LINE = #{record.LINE,jdbcType=VARCHAR},
+      </if>
+      <if test="record.LANE != null" >
+        LANE = #{record.LANE,jdbcType=VARCHAR},
+      </if>
+      <if test="record.LICENSE != null" >
+        LICENSE = #{record.LICENSE,jdbcType=VARCHAR},
+      </if>
+      <if test="record.LICENSE_CODE != null" >
+        LICENSE_CODE = #{record.LICENSE_CODE,jdbcType=VARCHAR},
+      </if>
+      <if test="record.LICENSE_TYPE != null" >
+        LICENSE_TYPE = #{record.LICENSE_TYPE,jdbcType=VARCHAR},
+      </if>
+      <if test="record.VEHICAL_COLOR != null" >
+        VEHICAL_COLOR = #{record.VEHICAL_COLOR,jdbcType=VARCHAR},
+      </if>
+      <if test="record.VEHICAL_TYPE != null" >
+        VEHICAL_TYPE = #{record.VEHICAL_TYPE,jdbcType=VARCHAR},
+      </if>
+      <if test="record.FUEL_TYPE != null" >
+        FUEL_TYPE = #{record.FUEL_TYPE,jdbcType=INTEGER},
+      </if>
+      <if test="record.MONITOR_TIME != null" >
+        MONITOR_TIME = #{record.MONITOR_TIME,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.RESULT != null" >
+        RESULT = #{record.RESULT,jdbcType=INTEGER},
+      </if>
+      <if test="record.CS != null" >
+        CS = #{record.CS,jdbcType=VARCHAR},
+      </if>
+      <if test="record.JSD != null" >
+        JSD = #{record.JSD,jdbcType=VARCHAR},
+      </if>
+      <if test="record.CSCD != null" >
+        CSCD = #{record.CSCD,jdbcType=VARCHAR},
+      </if>
+      <if test="record.CO2 != null" >
+        CO2 = #{record.CO2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.CO != null" >
+        CO = #{record.CO,jdbcType=DOUBLE},
+      </if>
+      <if test="record.CO_LIMIT != null" >
+        CO_LIMIT = #{record.CO_LIMIT,jdbcType=VARCHAR},
+      </if>
+      <if test="record.CO_JUDG != null" >
+        CO_JUDG = #{record.CO_JUDG,jdbcType=INTEGER},
+      </if>
+      <if test="record.HC != null" >
+        HC = #{record.HC,jdbcType=VARCHAR},
+      </if>
+      <if test="record.HC_LIMIT != null" >
+        HC_LIMIT = #{record.HC_LIMIT,jdbcType=VARCHAR},
+      </if>
+      <if test="record.HC_JUDG != null" >
+        HC_JUDG = #{record.HC_JUDG,jdbcType=INTEGER},
+      </if>
+      <if test="record.NO != null" >
+        NO = #{record.NO,jdbcType=VARCHAR},
+      </if>
+      <if test="record.NO_LIMIT != null" >
+        NO_LIMIT = #{record.NO_LIMIT,jdbcType=VARCHAR},
+      </if>
+      <if test="record.NO_JUDG != null" >
+        NO_JUDG = #{record.NO_JUDG,jdbcType=VARCHAR},
+      </if>
+      <if test="record.CO_CO2 != null" >
+        CO_CO2 = #{record.CO_CO2,jdbcType=DECIMAL},
+      </if>
+      <if test="record.HC_CO2 != null" >
+        HC_CO2 = #{record.HC_CO2,jdbcType=DECIMAL},
+      </if>
+      <if test="record.NO_CO2 != null" >
+        NO_CO2 = #{record.NO_CO2,jdbcType=DECIMAL},
+      </if>
+      <if test="record.SMOKE != null" >
+        SMOKE = #{record.SMOKE,jdbcType=VARCHAR},
+      </if>
+      <if test="record.SMOKE_LIMIT != null" >
+        SMOKE_LIMIT = #{record.SMOKE_LIMIT,jdbcType=VARCHAR},
+      </if>
+      <if test="record.SMOKE_JUDG != null" >
+        SMOKE_JUDG = #{record.SMOKE_JUDG,jdbcType=INTEGER},
+      </if>
+      <if test="record.VSP != null" >
+        VSP = #{record.VSP,jdbcType=DECIMAL},
+      </if>
+      <if test="record.WIND_SPEED != null" >
+        WIND_SPEED = #{record.WIND_SPEED,jdbcType=VARCHAR},
+      </if>
+      <if test="record.WIND_DIRECTION != null" >
+        WIND_DIRECTION = #{record.WIND_DIRECTION,jdbcType=REAL},
+      </if>
+      <if test="record.TEMPERATURE != null" >
+        TEMPERATURE = #{record.TEMPERATURE,jdbcType=VARCHAR},
+      </if>
+      <if test="record.HUMIDITY != null" >
+        HUMIDITY = #{record.HUMIDITY,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ATMOSPHERE != null" >
+        ATMOSPHERE = #{record.ATMOSPHERE,jdbcType=VARCHAR},
+      </if>
+      <if test="record.OAC != null" >
+        OAC = #{record.OAC,jdbcType=VARCHAR},
+      </if>
+      <if test="record.CONFIDENCE != null" >
+        CONFIDENCE = #{record.CONFIDENCE,jdbcType=VARCHAR},
+      </if>
+      <if test="record.VALIDITY != null" >
+        VALIDITY = #{record.VALIDITY,jdbcType=INTEGER},
+      </if>
+      <if test="record.CREATED_TIME != null" >
+        CREATED_TIME = #{record.CREATED_TIME,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.CREATED_USER != null" >
+        CREATED_USER = #{record.CREATED_USER,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update d_res_realtime
+    set ID = #{record.ID,jdbcType=INTEGER},
+      TS_NO = #{record.TS_NO,jdbcType=VARCHAR},
+      LINE = #{record.LINE,jdbcType=VARCHAR},
+      LANE = #{record.LANE,jdbcType=VARCHAR},
+      LICENSE = #{record.LICENSE,jdbcType=VARCHAR},
+      LICENSE_CODE = #{record.LICENSE_CODE,jdbcType=VARCHAR},
+      LICENSE_TYPE = #{record.LICENSE_TYPE,jdbcType=VARCHAR},
+      VEHICAL_COLOR = #{record.VEHICAL_COLOR,jdbcType=VARCHAR},
+      VEHICAL_TYPE = #{record.VEHICAL_TYPE,jdbcType=VARCHAR},
+      FUEL_TYPE = #{record.FUEL_TYPE,jdbcType=INTEGER},
+      MONITOR_TIME = #{record.MONITOR_TIME,jdbcType=TIMESTAMP},
+      RESULT = #{record.RESULT,jdbcType=INTEGER},
+      CS = #{record.CS,jdbcType=VARCHAR},
+      JSD = #{record.JSD,jdbcType=VARCHAR},
+      CSCD = #{record.CSCD,jdbcType=VARCHAR},
+      CO2 = #{record.CO2,jdbcType=VARCHAR},
+      CO = #{record.CO,jdbcType=DOUBLE},
+      CO_LIMIT = #{record.CO_LIMIT,jdbcType=VARCHAR},
+      CO_JUDG = #{record.CO_JUDG,jdbcType=INTEGER},
+      HC = #{record.HC,jdbcType=VARCHAR},
+      HC_LIMIT = #{record.HC_LIMIT,jdbcType=VARCHAR},
+      HC_JUDG = #{record.HC_JUDG,jdbcType=INTEGER},
+      NO = #{record.NO,jdbcType=VARCHAR},
+      NO_LIMIT = #{record.NO_LIMIT,jdbcType=VARCHAR},
+      NO_JUDG = #{record.NO_JUDG,jdbcType=VARCHAR},
+      CO_CO2 = #{record.CO_CO2,jdbcType=DECIMAL},
+      HC_CO2 = #{record.HC_CO2,jdbcType=DECIMAL},
+      NO_CO2 = #{record.NO_CO2,jdbcType=DECIMAL},
+      SMOKE = #{record.SMOKE,jdbcType=VARCHAR},
+      SMOKE_LIMIT = #{record.SMOKE_LIMIT,jdbcType=VARCHAR},
+      SMOKE_JUDG = #{record.SMOKE_JUDG,jdbcType=INTEGER},
+      VSP = #{record.VSP,jdbcType=DECIMAL},
+      WIND_SPEED = #{record.WIND_SPEED,jdbcType=VARCHAR},
+      WIND_DIRECTION = #{record.WIND_DIRECTION,jdbcType=REAL},
+      TEMPERATURE = #{record.TEMPERATURE,jdbcType=VARCHAR},
+      HUMIDITY = #{record.HUMIDITY,jdbcType=VARCHAR},
+      ATMOSPHERE = #{record.ATMOSPHERE,jdbcType=VARCHAR},
+      OAC = #{record.OAC,jdbcType=VARCHAR},
+      CONFIDENCE = #{record.CONFIDENCE,jdbcType=VARCHAR},
+      VALIDITY = #{record.VALIDITY,jdbcType=INTEGER},
+      CREATED_TIME = #{record.CREATED_TIME,jdbcType=TIMESTAMP},
+      CREATED_USER = #{record.CREATED_USER,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hzf.mq.entity.DResRealtime" >
+    update d_res_realtime
+    <set >
+      <if test="TS_NO != null" >
+        TS_NO = #{TS_NO,jdbcType=VARCHAR},
+      </if>
+      <if test="LINE != null" >
+        LINE = #{LINE,jdbcType=VARCHAR},
+      </if>
+      <if test="LANE != null" >
+        LANE = #{LANE,jdbcType=VARCHAR},
+      </if>
+      <if test="LICENSE != null" >
+        LICENSE = #{LICENSE,jdbcType=VARCHAR},
+      </if>
+      <if test="LICENSE_CODE != null" >
+        LICENSE_CODE = #{LICENSE_CODE,jdbcType=VARCHAR},
+      </if>
+      <if test="LICENSE_TYPE != null" >
+        LICENSE_TYPE = #{LICENSE_TYPE,jdbcType=VARCHAR},
+      </if>
+      <if test="VEHICAL_COLOR != null" >
+        VEHICAL_COLOR = #{VEHICAL_COLOR,jdbcType=VARCHAR},
+      </if>
+      <if test="VEHICAL_TYPE != null" >
+        VEHICAL_TYPE = #{VEHICAL_TYPE,jdbcType=VARCHAR},
+      </if>
+      <if test="FUEL_TYPE != null" >
+        FUEL_TYPE = #{FUEL_TYPE,jdbcType=INTEGER},
+      </if>
+      <if test="MONITOR_TIME != null" >
+        MONITOR_TIME = #{MONITOR_TIME,jdbcType=TIMESTAMP},
+      </if>
+      <if test="RESULT != null" >
+        RESULT = #{RESULT,jdbcType=INTEGER},
+      </if>
+      <if test="CS != null" >
+        CS = #{CS,jdbcType=VARCHAR},
+      </if>
+      <if test="JSD != null" >
+        JSD = #{JSD,jdbcType=VARCHAR},
+      </if>
+      <if test="CSCD != null" >
+        CSCD = #{CSCD,jdbcType=VARCHAR},
+      </if>
+      <if test="CO2 != null" >
+        CO2 = #{CO2,jdbcType=VARCHAR},
+      </if>
+      <if test="CO != null" >
+        CO = #{CO,jdbcType=DOUBLE},
+      </if>
+      <if test="CO_LIMIT != null" >
+        CO_LIMIT = #{CO_LIMIT,jdbcType=VARCHAR},
+      </if>
+      <if test="CO_JUDG != null" >
+        CO_JUDG = #{CO_JUDG,jdbcType=INTEGER},
+      </if>
+      <if test="HC != null" >
+        HC = #{HC,jdbcType=VARCHAR},
+      </if>
+      <if test="HC_LIMIT != null" >
+        HC_LIMIT = #{HC_LIMIT,jdbcType=VARCHAR},
+      </if>
+      <if test="HC_JUDG != null" >
+        HC_JUDG = #{HC_JUDG,jdbcType=INTEGER},
+      </if>
+      <if test="NO != null" >
+        NO = #{NO,jdbcType=VARCHAR},
+      </if>
+      <if test="NO_LIMIT != null" >
+        NO_LIMIT = #{NO_LIMIT,jdbcType=VARCHAR},
+      </if>
+      <if test="NO_JUDG != null" >
+        NO_JUDG = #{NO_JUDG,jdbcType=VARCHAR},
+      </if>
+      <if test="CO_CO2 != null" >
+        CO_CO2 = #{CO_CO2,jdbcType=DECIMAL},
+      </if>
+      <if test="HC_CO2 != null" >
+        HC_CO2 = #{HC_CO2,jdbcType=DECIMAL},
+      </if>
+      <if test="NO_CO2 != null" >
+        NO_CO2 = #{NO_CO2,jdbcType=DECIMAL},
+      </if>
+      <if test="SMOKE != null" >
+        SMOKE = #{SMOKE,jdbcType=VARCHAR},
+      </if>
+      <if test="SMOKE_LIMIT != null" >
+        SMOKE_LIMIT = #{SMOKE_LIMIT,jdbcType=VARCHAR},
+      </if>
+      <if test="SMOKE_JUDG != null" >
+        SMOKE_JUDG = #{SMOKE_JUDG,jdbcType=INTEGER},
+      </if>
+      <if test="VSP != null" >
+        VSP = #{VSP,jdbcType=DECIMAL},
+      </if>
+      <if test="WIND_SPEED != null" >
+        WIND_SPEED = #{WIND_SPEED,jdbcType=VARCHAR},
+      </if>
+      <if test="WIND_DIRECTION != null" >
+        WIND_DIRECTION = #{WIND_DIRECTION,jdbcType=REAL},
+      </if>
+      <if test="TEMPERATURE != null" >
+        TEMPERATURE = #{TEMPERATURE,jdbcType=VARCHAR},
+      </if>
+      <if test="HUMIDITY != null" >
+        HUMIDITY = #{HUMIDITY,jdbcType=VARCHAR},
+      </if>
+      <if test="ATMOSPHERE != null" >
+        ATMOSPHERE = #{ATMOSPHERE,jdbcType=VARCHAR},
+      </if>
+      <if test="OAC != null" >
+        OAC = #{OAC,jdbcType=VARCHAR},
+      </if>
+      <if test="CONFIDENCE != null" >
+        CONFIDENCE = #{CONFIDENCE,jdbcType=VARCHAR},
+      </if>
+      <if test="VALIDITY != null" >
+        VALIDITY = #{VALIDITY,jdbcType=INTEGER},
+      </if>
+      <if test="CREATED_TIME != null" >
+        CREATED_TIME = #{CREATED_TIME,jdbcType=TIMESTAMP},
+      </if>
+      <if test="CREATED_USER != null" >
+        CREATED_USER = #{CREATED_USER,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{ID,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hzf.mq.entity.DResRealtime" >
+    update d_res_realtime
+    set TS_NO = #{TS_NO,jdbcType=VARCHAR},
+      LINE = #{LINE,jdbcType=VARCHAR},
+      LANE = #{LANE,jdbcType=VARCHAR},
+      LICENSE = #{LICENSE,jdbcType=VARCHAR},
+      LICENSE_CODE = #{LICENSE_CODE,jdbcType=VARCHAR},
+      LICENSE_TYPE = #{LICENSE_TYPE,jdbcType=VARCHAR},
+      VEHICAL_COLOR = #{VEHICAL_COLOR,jdbcType=VARCHAR},
+      VEHICAL_TYPE = #{VEHICAL_TYPE,jdbcType=VARCHAR},
+      FUEL_TYPE = #{FUEL_TYPE,jdbcType=INTEGER},
+      MONITOR_TIME = #{MONITOR_TIME,jdbcType=TIMESTAMP},
+      RESULT = #{RESULT,jdbcType=INTEGER},
+      CS = #{CS,jdbcType=VARCHAR},
+      JSD = #{JSD,jdbcType=VARCHAR},
+      CSCD = #{CSCD,jdbcType=VARCHAR},
+      CO2 = #{CO2,jdbcType=VARCHAR},
+      CO = #{CO,jdbcType=DOUBLE},
+      CO_LIMIT = #{CO_LIMIT,jdbcType=VARCHAR},
+      CO_JUDG = #{CO_JUDG,jdbcType=INTEGER},
+      HC = #{HC,jdbcType=VARCHAR},
+      HC_LIMIT = #{HC_LIMIT,jdbcType=VARCHAR},
+      HC_JUDG = #{HC_JUDG,jdbcType=INTEGER},
+      NO = #{NO,jdbcType=VARCHAR},
+      NO_LIMIT = #{NO_LIMIT,jdbcType=VARCHAR},
+      NO_JUDG = #{NO_JUDG,jdbcType=VARCHAR},
+      CO_CO2 = #{CO_CO2,jdbcType=DECIMAL},
+      HC_CO2 = #{HC_CO2,jdbcType=DECIMAL},
+      NO_CO2 = #{NO_CO2,jdbcType=DECIMAL},
+      SMOKE = #{SMOKE,jdbcType=VARCHAR},
+      SMOKE_LIMIT = #{SMOKE_LIMIT,jdbcType=VARCHAR},
+      SMOKE_JUDG = #{SMOKE_JUDG,jdbcType=INTEGER},
+      VSP = #{VSP,jdbcType=DECIMAL},
+      WIND_SPEED = #{WIND_SPEED,jdbcType=VARCHAR},
+      WIND_DIRECTION = #{WIND_DIRECTION,jdbcType=REAL},
+      TEMPERATURE = #{TEMPERATURE,jdbcType=VARCHAR},
+      HUMIDITY = #{HUMIDITY,jdbcType=VARCHAR},
+      ATMOSPHERE = #{ATMOSPHERE,jdbcType=VARCHAR},
+      OAC = #{OAC,jdbcType=VARCHAR},
+      CONFIDENCE = #{CONFIDENCE,jdbcType=VARCHAR},
+      VALIDITY = #{VALIDITY,jdbcType=INTEGER},
+      CREATED_TIME = #{CREATED_TIME,jdbcType=TIMESTAMP},
+      CREATED_USER = #{CREATED_USER,jdbcType=VARCHAR}
+    where ID = #{ID,jdbcType=INTEGER}
+  </update>
+</mapper>

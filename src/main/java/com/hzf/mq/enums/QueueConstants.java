@@ -1,4 +1,4 @@
-package com.hzf.mq.entity;
+package com.hzf.mq.enums;
 
 public enum QueueConstants {
     QUEUE_TEST1("queue_test_one", "队列1"),

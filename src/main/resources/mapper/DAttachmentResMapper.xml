@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hzf.mq.dao.DAttachmentResMapper" >
+  <resultMap id="BaseResultMap" type="com.hzf.mq.entity.DAttachmentRes" >
+    <id column="ID" property="ID" jdbcType="INTEGER" />
+    <result column="RES_ID" property="RES_ID" jdbcType="INTEGER" />
+    <result column="TYPE" property="TYPE" jdbcType="INTEGER" />
+    <result column="NAME" property="NAME" jdbcType="VARCHAR" />
+    <result column="FILE_PATH" property="FILE_PATH" jdbcType="VARCHAR" />
+    <result column="EXTENSION" property="EXTENSION" jdbcType="VARCHAR" />
+    <result column="SIZE" property="SIZE" jdbcType="VARCHAR" />
+    <result column="MD5" property="MD5" jdbcType="VARCHAR" />
+    <result column="CREATED_USER" property="CREATED_USER" jdbcType="VARCHAR" />
+    <result column="CREATED_TIME" property="CREATED_TIME" jdbcType="TIMESTAMP" />
+    <result column="UPDATED_USER" property="UPDATED_USER" jdbcType="VARCHAR" />
+    <result column="UPDATED_TIME" property="UPDATED_TIME" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, RES_ID, TYPE, NAME, FILE_PATH, EXTENSION, SIZE, MD5, CREATED_USER, CREATED_TIME, 
+    UPDATED_USER, UPDATED_TIME
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hzf.mq.entity.DAttachmentResExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from d_attachment_res
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from d_attachment_res
+    where ID = #{ID,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from d_attachment_res
+    where ID = #{ID,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.hzf.mq.entity.DAttachmentResExample" >
+    delete from d_attachment_res
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hzf.mq.entity.DAttachmentRes" >
+    insert into d_attachment_res (ID, RES_ID, TYPE, 
+      NAME, FILE_PATH, EXTENSION, 
+      SIZE, MD5, CREATED_USER, 
+      CREATED_TIME, UPDATED_USER, UPDATED_TIME
+      )
+    values (#{ID,jdbcType=INTEGER}, #{RES_ID,jdbcType=INTEGER}, #{TYPE,jdbcType=INTEGER}, 
+      #{NAME,jdbcType=VARCHAR}, #{FILE_PATH,jdbcType=VARCHAR}, #{EXTENSION,jdbcType=VARCHAR}, 
+      #{SIZE,jdbcType=VARCHAR}, #{MD5,jdbcType=VARCHAR}, #{CREATED_USER,jdbcType=VARCHAR}, 
+      #{CREATED_TIME,jdbcType=TIMESTAMP}, #{UPDATED_USER,jdbcType=VARCHAR}, #{UPDATED_TIME,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.hzf.mq.entity.DAttachmentRes" >
+    insert into d_attachment_res
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="ID != null" >
+        ID,
+      </if>
+      <if test="RES_ID != null" >
+        RES_ID,
+      </if>
+      <if test="TYPE != null" >
+        TYPE,
+      </if>
+      <if test="NAME != null" >
+        NAME,
+      </if>
+      <if test="FILE_PATH != null" >
+        FILE_PATH,
+      </if>
+      <if test="EXTENSION != null" >
+        EXTENSION,
+      </if>
+      <if test="SIZE != null" >
+        SIZE,
+      </if>
+      <if test="MD5 != null" >
+        MD5,
+      </if>
+      <if test="CREATED_USER != null" >
+        CREATED_USER,
+      </if>
+      <if test="CREATED_TIME != null" >
+        CREATED_TIME,
+      </if>
+      <if test="UPDATED_USER != null" >
+        UPDATED_USER,
+      </if>
+      <if test="UPDATED_TIME != null" >
+        UPDATED_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="ID != null" >
+        #{ID,jdbcType=INTEGER},
+      </if>
+      <if test="RES_ID != null" >
+        #{RES_ID,jdbcType=INTEGER},
+      </if>
+      <if test="TYPE != null" >
+        #{TYPE,jdbcType=INTEGER},
+      </if>
+      <if test="NAME != null" >
+        #{NAME,jdbcType=VARCHAR},
+      </if>
+      <if test="FILE_PATH != null" >
+        #{FILE_PATH,jdbcType=VARCHAR},
+      </if>
+      <if test="EXTENSION != null" >
+        #{EXTENSION,jdbcType=VARCHAR},
+      </if>
+      <if test="SIZE != null" >
+        #{SIZE,jdbcType=VARCHAR},
+      </if>
+      <if test="MD5 != null" >
+        #{MD5,jdbcType=VARCHAR},
+      </if>
+      <if test="CREATED_USER != null" >
+        #{CREATED_USER,jdbcType=VARCHAR},
+      </if>
+      <if test="CREATED_TIME != null" >
+        #{CREATED_TIME,jdbcType=TIMESTAMP},
+      </if>
+      <if test="UPDATED_USER != null" >
+        #{UPDATED_USER,jdbcType=VARCHAR},
+      </if>
+      <if test="UPDATED_TIME != null" >
+        #{UPDATED_TIME,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hzf.mq.entity.DAttachmentResExample" resultType="java.lang.Integer" >
+    select count(*) from d_attachment_res
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update d_attachment_res
+    <set >
+      <if test="record.ID != null" >
+        ID = #{record.ID,jdbcType=INTEGER},
+      </if>
+      <if test="record.RES_ID != null" >
+        RES_ID = #{record.RES_ID,jdbcType=INTEGER},
+      </if>
+      <if test="record.TYPE != null" >
+        TYPE = #{record.TYPE,jdbcType=INTEGER},
+      </if>
+      <if test="record.NAME != null" >
+        NAME = #{record.NAME,jdbcType=VARCHAR},
+      </if>
+      <if test="record.FILE_PATH != null" >
+        FILE_PATH = #{record.FILE_PATH,jdbcType=VARCHAR},
+      </if>
+      <if test="record.EXTENSION != null" >
+        EXTENSION = #{record.EXTENSION,jdbcType=VARCHAR},
+      </if>
+      <if test="record.SIZE != null" >
+        SIZE = #{record.SIZE,jdbcType=VARCHAR},
+      </if>
+      <if test="record.MD5 != null" >
+        MD5 = #{record.MD5,jdbcType=VARCHAR},
+      </if>
+      <if test="record.CREATED_USER != null" >
+        CREATED_USER = #{record.CREATED_USER,jdbcType=VARCHAR},
+      </if>
+      <if test="record.CREATED_TIME != null" >
+        CREATED_TIME = #{record.CREATED_TIME,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.UPDATED_USER != null" >
+        UPDATED_USER = #{record.UPDATED_USER,jdbcType=VARCHAR},
+      </if>
+      <if test="record.UPDATED_TIME != null" >
+        UPDATED_TIME = #{record.UPDATED_TIME,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update d_attachment_res
+    set ID = #{record.ID,jdbcType=INTEGER},
+      RES_ID = #{record.RES_ID,jdbcType=INTEGER},
+      TYPE = #{record.TYPE,jdbcType=INTEGER},
+      NAME = #{record.NAME,jdbcType=VARCHAR},
+      FILE_PATH = #{record.FILE_PATH,jdbcType=VARCHAR},
+      EXTENSION = #{record.EXTENSION,jdbcType=VARCHAR},
+      SIZE = #{record.SIZE,jdbcType=VARCHAR},
+      MD5 = #{record.MD5,jdbcType=VARCHAR},
+      CREATED_USER = #{record.CREATED_USER,jdbcType=VARCHAR},
+      CREATED_TIME = #{record.CREATED_TIME,jdbcType=TIMESTAMP},
+      UPDATED_USER = #{record.UPDATED_USER,jdbcType=VARCHAR},
+      UPDATED_TIME = #{record.UPDATED_TIME,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hzf.mq.entity.DAttachmentRes" >
+    update d_attachment_res
+    <set >
+      <if test="RES_ID != null" >
+        RES_ID = #{RES_ID,jdbcType=INTEGER},
+      </if>
+      <if test="TYPE != null" >
+        TYPE = #{TYPE,jdbcType=INTEGER},
+      </if>
+      <if test="NAME != null" >
+        NAME = #{NAME,jdbcType=VARCHAR},
+      </if>
+      <if test="FILE_PATH != null" >
+        FILE_PATH = #{FILE_PATH,jdbcType=VARCHAR},
+      </if>
+      <if test="EXTENSION != null" >
+        EXTENSION = #{EXTENSION,jdbcType=VARCHAR},
+      </if>
+      <if test="SIZE != null" >
+        SIZE = #{SIZE,jdbcType=VARCHAR},
+      </if>
+      <if test="MD5 != null" >
+        MD5 = #{MD5,jdbcType=VARCHAR},
+      </if>
+      <if test="CREATED_USER != null" >
+        CREATED_USER = #{CREATED_USER,jdbcType=VARCHAR},
+      </if>
+      <if test="CREATED_TIME != null" >
+        CREATED_TIME = #{CREATED_TIME,jdbcType=TIMESTAMP},
+      </if>
+      <if test="UPDATED_USER != null" >
+        UPDATED_USER = #{UPDATED_USER,jdbcType=VARCHAR},
+      </if>
+      <if test="UPDATED_TIME != null" >
+        UPDATED_TIME = #{UPDATED_TIME,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{ID,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hzf.mq.entity.DAttachmentRes" >
+    update d_attachment_res
+    set RES_ID = #{RES_ID,jdbcType=INTEGER},
+      TYPE = #{TYPE,jdbcType=INTEGER},
+      NAME = #{NAME,jdbcType=VARCHAR},
+      FILE_PATH = #{FILE_PATH,jdbcType=VARCHAR},
+      EXTENSION = #{EXTENSION,jdbcType=VARCHAR},
+      SIZE = #{SIZE,jdbcType=VARCHAR},
+      MD5 = #{MD5,jdbcType=VARCHAR},
+      CREATED_USER = #{CREATED_USER,jdbcType=VARCHAR},
+      CREATED_TIME = #{CREATED_TIME,jdbcType=TIMESTAMP},
+      UPDATED_USER = #{UPDATED_USER,jdbcType=VARCHAR},
+      UPDATED_TIME = #{UPDATED_TIME,jdbcType=TIMESTAMP}
+    where ID = #{ID,jdbcType=INTEGER}
+  </update>
+</mapper>

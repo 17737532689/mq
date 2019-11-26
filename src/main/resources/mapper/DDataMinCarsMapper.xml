@@ -1,0 +1,678 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hzf.mq.dao.DDataMinCarsMapper" >
+  <resultMap id="BaseResultMap" type="com.hzf.mq.entity.DDataMinCars" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="station_id" property="station_id" jdbcType="VARCHAR" />
+    <result column="data_code" property="data_code" jdbcType="VARCHAR" />
+    <result column="test_time" property="test_time" jdbcType="VARCHAR" />
+    <result column="plate_umber" property="plate_umber" jdbcType="VARCHAR" />
+    <result column="plate_color" property="plate_color" jdbcType="VARCHAR" />
+    <result column="car_speed" property="car_speed" jdbcType="REAL" />
+    <result column="car_accel" property="car_accel" jdbcType="REAL" />
+    <result column="car_vsp" property="car_vsp" jdbcType="REAL" />
+    <result column="no_data" property="no_data" jdbcType="REAL" />
+    <result column="co2_data" property="co2_data" jdbcType="REAL" />
+    <result column="co_data" property="co_data" jdbcType="REAL" />
+    <result column="hc_data" property="hc_data" jdbcType="REAL" />
+    <result column="pm_data" property="pm_data" jdbcType="REAL" />
+    <result column="wind_speed" property="wind_speed" jdbcType="REAL" />
+    <result column="wind_direction" property="wind_direction" jdbcType="REAL" />
+    <result column="temp" property="temp" jdbcType="REAL" />
+    <result column="hum" property="hum" jdbcType="REAL" />
+    <result column="pressure" property="pressure" jdbcType="REAL" />
+    <result column="test_address" property="test_address" jdbcType="VARCHAR" />
+    <result column="road_way" property="road_way" jdbcType="VARCHAR" />
+    <result column="test_result" property="test_result" jdbcType="VARCHAR" />
+    <result column="is_black" property="is_black" jdbcType="VARCHAR" />
+    <result column="car_type" property="car_type" jdbcType="VARCHAR" />
+    <result column="created_at" property="created_at" jdbcType="TIMESTAMP" />
+    <result column="updated_at" property="updated_at" jdbcType="TIMESTAMP" />
+    <result column="picture_url" property="picture_url" jdbcType="VARCHAR" />
+    <result column="tele_times" property="tele_times" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.hzf.mq.entity.DDataMinCars" extends="BaseResultMap" >
+    <result column="car_picture" property="car_picture" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, station_id, data_code, test_time, plate_umber, plate_color, car_speed, car_accel, 
+    car_vsp, no_data, co2_data, co_data, hc_data, pm_data, wind_speed, wind_direction, 
+    temp, hum, pressure, test_address, road_way, test_result, is_black, car_type, created_at, 
+    updated_at, picture_url, tele_times
+  </sql>
+  <sql id="Blob_Column_List" >
+    car_picture
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.hzf.mq.entity.DDataMinCarsExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from d_data_min_cars
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hzf.mq.entity.DDataMinCarsExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from d_data_min_cars
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from d_data_min_cars
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from d_data_min_cars
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.hzf.mq.entity.DDataMinCarsExample" >
+    delete from d_data_min_cars
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hzf.mq.entity.DDataMinCars" >
+    insert into d_data_min_cars (id, station_id, data_code, 
+      test_time, plate_umber, plate_color, 
+      car_speed, car_accel, car_vsp, 
+      no_data, co2_data, co_data, 
+      hc_data, pm_data, wind_speed, 
+      wind_direction, temp, hum, pressure, 
+      test_address, road_way, test_result, 
+      is_black, car_type, created_at, 
+      updated_at, picture_url, tele_times, 
+      car_picture)
+    values (#{id,jdbcType=INTEGER}, #{station_id,jdbcType=VARCHAR}, #{data_code,jdbcType=VARCHAR}, 
+      #{test_time,jdbcType=VARCHAR}, #{plate_umber,jdbcType=VARCHAR}, #{plate_color,jdbcType=VARCHAR}, 
+      #{car_speed,jdbcType=REAL}, #{car_accel,jdbcType=REAL}, #{car_vsp,jdbcType=REAL}, 
+      #{no_data,jdbcType=REAL}, #{co2_data,jdbcType=REAL}, #{co_data,jdbcType=REAL}, 
+      #{hc_data,jdbcType=REAL}, #{pm_data,jdbcType=REAL}, #{wind_speed,jdbcType=REAL}, 
+      #{wind_direction,jdbcType=REAL}, #{temp,jdbcType=REAL}, #{hum,jdbcType=REAL}, #{pressure,jdbcType=REAL}, 
+      #{test_address,jdbcType=VARCHAR}, #{road_way,jdbcType=VARCHAR}, #{test_result,jdbcType=VARCHAR}, 
+      #{is_black,jdbcType=VARCHAR}, #{car_type,jdbcType=VARCHAR}, #{created_at,jdbcType=TIMESTAMP}, 
+      #{updated_at,jdbcType=TIMESTAMP}, #{picture_url,jdbcType=VARCHAR}, #{tele_times,jdbcType=VARCHAR}, 
+      #{car_picture,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hzf.mq.entity.DDataMinCars" >
+    insert into d_data_min_cars
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="station_id != null" >
+        station_id,
+      </if>
+      <if test="data_code != null" >
+        data_code,
+      </if>
+      <if test="test_time != null" >
+        test_time,
+      </if>
+      <if test="plate_umber != null" >
+        plate_umber,
+      </if>
+      <if test="plate_color != null" >
+        plate_color,
+      </if>
+      <if test="car_speed != null" >
+        car_speed,
+      </if>
+      <if test="car_accel != null" >
+        car_accel,
+      </if>
+      <if test="car_vsp != null" >
+        car_vsp,
+      </if>
+      <if test="no_data != null" >
+        no_data,
+      </if>
+      <if test="co2_data != null" >
+        co2_data,
+      </if>
+      <if test="co_data != null" >
+        co_data,
+      </if>
+      <if test="hc_data != null" >
+        hc_data,
+      </if>
+      <if test="pm_data != null" >
+        pm_data,
+      </if>
+      <if test="wind_speed != null" >
+        wind_speed,
+      </if>
+      <if test="wind_direction != null" >
+        wind_direction,
+      </if>
+      <if test="temp != null" >
+        temp,
+      </if>
+      <if test="hum != null" >
+        hum,
+      </if>
+      <if test="pressure != null" >
+        pressure,
+      </if>
+      <if test="test_address != null" >
+        test_address,
+      </if>
+      <if test="road_way != null" >
+        road_way,
+      </if>
+      <if test="test_result != null" >
+        test_result,
+      </if>
+      <if test="is_black != null" >
+        is_black,
+      </if>
+      <if test="car_type != null" >
+        car_type,
+      </if>
+      <if test="created_at != null" >
+        created_at,
+      </if>
+      <if test="updated_at != null" >
+        updated_at,
+      </if>
+      <if test="picture_url != null" >
+        picture_url,
+      </if>
+      <if test="tele_times != null" >
+        tele_times,
+      </if>
+      <if test="car_picture != null" >
+        car_picture,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="station_id != null" >
+        #{station_id,jdbcType=VARCHAR},
+      </if>
+      <if test="data_code != null" >
+        #{data_code,jdbcType=VARCHAR},
+      </if>
+      <if test="test_time != null" >
+        #{test_time,jdbcType=VARCHAR},
+      </if>
+      <if test="plate_umber != null" >
+        #{plate_umber,jdbcType=VARCHAR},
+      </if>
+      <if test="plate_color != null" >
+        #{plate_color,jdbcType=VARCHAR},
+      </if>
+      <if test="car_speed != null" >
+        #{car_speed,jdbcType=REAL},
+      </if>
+      <if test="car_accel != null" >
+        #{car_accel,jdbcType=REAL},
+      </if>
+      <if test="car_vsp != null" >
+        #{car_vsp,jdbcType=REAL},
+      </if>
+      <if test="no_data != null" >
+        #{no_data,jdbcType=REAL},
+      </if>
+      <if test="co2_data != null" >
+        #{co2_data,jdbcType=REAL},
+      </if>
+      <if test="co_data != null" >
+        #{co_data,jdbcType=REAL},
+      </if>
+      <if test="hc_data != null" >
+        #{hc_data,jdbcType=REAL},
+      </if>
+      <if test="pm_data != null" >
+        #{pm_data,jdbcType=REAL},
+      </if>
+      <if test="wind_speed != null" >
+        #{wind_speed,jdbcType=REAL},
+      </if>
+      <if test="wind_direction != null" >
+        #{wind_direction,jdbcType=REAL},
+      </if>
+      <if test="temp != null" >
+        #{temp,jdbcType=REAL},
+      </if>
+      <if test="hum != null" >
+        #{hum,jdbcType=REAL},
+      </if>
+      <if test="pressure != null" >
+        #{pressure,jdbcType=REAL},
+      </if>
+      <if test="test_address != null" >
+        #{test_address,jdbcType=VARCHAR},
+      </if>
+      <if test="road_way != null" >
+        #{road_way,jdbcType=VARCHAR},
+      </if>
+      <if test="test_result != null" >
+        #{test_result,jdbcType=VARCHAR},
+      </if>
+      <if test="is_black != null" >
+        #{is_black,jdbcType=VARCHAR},
+      </if>
+      <if test="car_type != null" >
+        #{car_type,jdbcType=VARCHAR},
+      </if>
+      <if test="created_at != null" >
+        #{created_at,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updated_at != null" >
+        #{updated_at,jdbcType=TIMESTAMP},
+      </if>
+      <if test="picture_url != null" >
+        #{picture_url,jdbcType=VARCHAR},
+      </if>
+      <if test="tele_times != null" >
+        #{tele_times,jdbcType=VARCHAR},
+      </if>
+      <if test="car_picture != null" >
+        #{car_picture,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hzf.mq.entity.DDataMinCarsExample" resultType="java.lang.Integer" >
+    select count(*) from d_data_min_cars
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update d_data_min_cars
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.station_id != null" >
+        station_id = #{record.station_id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.data_code != null" >
+        data_code = #{record.data_code,jdbcType=VARCHAR},
+      </if>
+      <if test="record.test_time != null" >
+        test_time = #{record.test_time,jdbcType=VARCHAR},
+      </if>
+      <if test="record.plate_umber != null" >
+        plate_umber = #{record.plate_umber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.plate_color != null" >
+        plate_color = #{record.plate_color,jdbcType=VARCHAR},
+      </if>
+      <if test="record.car_speed != null" >
+        car_speed = #{record.car_speed,jdbcType=REAL},
+      </if>
+      <if test="record.car_accel != null" >
+        car_accel = #{record.car_accel,jdbcType=REAL},
+      </if>
+      <if test="record.car_vsp != null" >
+        car_vsp = #{record.car_vsp,jdbcType=REAL},
+      </if>
+      <if test="record.no_data != null" >
+        no_data = #{record.no_data,jdbcType=REAL},
+      </if>
+      <if test="record.co2_data != null" >
+        co2_data = #{record.co2_data,jdbcType=REAL},
+      </if>
+      <if test="record.co_data != null" >
+        co_data = #{record.co_data,jdbcType=REAL},
+      </if>
+      <if test="record.hc_data != null" >
+        hc_data = #{record.hc_data,jdbcType=REAL},
+      </if>
+      <if test="record.pm_data != null" >
+        pm_data = #{record.pm_data,jdbcType=REAL},
+      </if>
+      <if test="record.wind_speed != null" >
+        wind_speed = #{record.wind_speed,jdbcType=REAL},
+      </if>
+      <if test="record.wind_direction != null" >
+        wind_direction = #{record.wind_direction,jdbcType=REAL},
+      </if>
+      <if test="record.temp != null" >
+        temp = #{record.temp,jdbcType=REAL},
+      </if>
+      <if test="record.hum != null" >
+        hum = #{record.hum,jdbcType=REAL},
+      </if>
+      <if test="record.pressure != null" >
+        pressure = #{record.pressure,jdbcType=REAL},
+      </if>
+      <if test="record.test_address != null" >
+        test_address = #{record.test_address,jdbcType=VARCHAR},
+      </if>
+      <if test="record.road_way != null" >
+        road_way = #{record.road_way,jdbcType=VARCHAR},
+      </if>
+      <if test="record.test_result != null" >
+        test_result = #{record.test_result,jdbcType=VARCHAR},
+      </if>
+      <if test="record.is_black != null" >
+        is_black = #{record.is_black,jdbcType=VARCHAR},
+      </if>
+      <if test="record.car_type != null" >
+        car_type = #{record.car_type,jdbcType=VARCHAR},
+      </if>
+      <if test="record.created_at != null" >
+        created_at = #{record.created_at,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updated_at != null" >
+        updated_at = #{record.updated_at,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.picture_url != null" >
+        picture_url = #{record.picture_url,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tele_times != null" >
+        tele_times = #{record.tele_times,jdbcType=VARCHAR},
+      </if>
+      <if test="record.car_picture != null" >
+        car_picture = #{record.car_picture,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update d_data_min_cars
+    set id = #{record.id,jdbcType=INTEGER},
+      station_id = #{record.station_id,jdbcType=VARCHAR},
+      data_code = #{record.data_code,jdbcType=VARCHAR},
+      test_time = #{record.test_time,jdbcType=VARCHAR},
+      plate_umber = #{record.plate_umber,jdbcType=VARCHAR},
+      plate_color = #{record.plate_color,jdbcType=VARCHAR},
+      car_speed = #{record.car_speed,jdbcType=REAL},
+      car_accel = #{record.car_accel,jdbcType=REAL},
+      car_vsp = #{record.car_vsp,jdbcType=REAL},
+      no_data = #{record.no_data,jdbcType=REAL},
+      co2_data = #{record.co2_data,jdbcType=REAL},
+      co_data = #{record.co_data,jdbcType=REAL},
+      hc_data = #{record.hc_data,jdbcType=REAL},
+      pm_data = #{record.pm_data,jdbcType=REAL},
+      wind_speed = #{record.wind_speed,jdbcType=REAL},
+      wind_direction = #{record.wind_direction,jdbcType=REAL},
+      temp = #{record.temp,jdbcType=REAL},
+      hum = #{record.hum,jdbcType=REAL},
+      pressure = #{record.pressure,jdbcType=REAL},
+      test_address = #{record.test_address,jdbcType=VARCHAR},
+      road_way = #{record.road_way,jdbcType=VARCHAR},
+      test_result = #{record.test_result,jdbcType=VARCHAR},
+      is_black = #{record.is_black,jdbcType=VARCHAR},
+      car_type = #{record.car_type,jdbcType=VARCHAR},
+      created_at = #{record.created_at,jdbcType=TIMESTAMP},
+      updated_at = #{record.updated_at,jdbcType=TIMESTAMP},
+      picture_url = #{record.picture_url,jdbcType=VARCHAR},
+      tele_times = #{record.tele_times,jdbcType=VARCHAR},
+      car_picture = #{record.car_picture,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update d_data_min_cars
+    set id = #{record.id,jdbcType=INTEGER},
+      station_id = #{record.station_id,jdbcType=VARCHAR},
+      data_code = #{record.data_code,jdbcType=VARCHAR},
+      test_time = #{record.test_time,jdbcType=VARCHAR},
+      plate_umber = #{record.plate_umber,jdbcType=VARCHAR},
+      plate_color = #{record.plate_color,jdbcType=VARCHAR},
+      car_speed = #{record.car_speed,jdbcType=REAL},
+      car_accel = #{record.car_accel,jdbcType=REAL},
+      car_vsp = #{record.car_vsp,jdbcType=REAL},
+      no_data = #{record.no_data,jdbcType=REAL},
+      co2_data = #{record.co2_data,jdbcType=REAL},
+      co_data = #{record.co_data,jdbcType=REAL},
+      hc_data = #{record.hc_data,jdbcType=REAL},
+      pm_data = #{record.pm_data,jdbcType=REAL},
+      wind_speed = #{record.wind_speed,jdbcType=REAL},
+      wind_direction = #{record.wind_direction,jdbcType=REAL},
+      temp = #{record.temp,jdbcType=REAL},
+      hum = #{record.hum,jdbcType=REAL},
+      pressure = #{record.pressure,jdbcType=REAL},
+      test_address = #{record.test_address,jdbcType=VARCHAR},
+      road_way = #{record.road_way,jdbcType=VARCHAR},
+      test_result = #{record.test_result,jdbcType=VARCHAR},
+      is_black = #{record.is_black,jdbcType=VARCHAR},
+      car_type = #{record.car_type,jdbcType=VARCHAR},
+      created_at = #{record.created_at,jdbcType=TIMESTAMP},
+      updated_at = #{record.updated_at,jdbcType=TIMESTAMP},
+      picture_url = #{record.picture_url,jdbcType=VARCHAR},
+      tele_times = #{record.tele_times,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hzf.mq.entity.DDataMinCars" >
+    update d_data_min_cars
+    <set >
+      <if test="station_id != null" >
+        station_id = #{station_id,jdbcType=VARCHAR},
+      </if>
+      <if test="data_code != null" >
+        data_code = #{data_code,jdbcType=VARCHAR},
+      </if>
+      <if test="test_time != null" >
+        test_time = #{test_time,jdbcType=VARCHAR},
+      </if>
+      <if test="plate_umber != null" >
+        plate_umber = #{plate_umber,jdbcType=VARCHAR},
+      </if>
+      <if test="plate_color != null" >
+        plate_color = #{plate_color,jdbcType=VARCHAR},
+      </if>
+      <if test="car_speed != null" >
+        car_speed = #{car_speed,jdbcType=REAL},
+      </if>
+      <if test="car_accel != null" >
+        car_accel = #{car_accel,jdbcType=REAL},
+      </if>
+      <if test="car_vsp != null" >
+        car_vsp = #{car_vsp,jdbcType=REAL},
+      </if>
+      <if test="no_data != null" >
+        no_data = #{no_data,jdbcType=REAL},
+      </if>
+      <if test="co2_data != null" >
+        co2_data = #{co2_data,jdbcType=REAL},
+      </if>
+      <if test="co_data != null" >
+        co_data = #{co_data,jdbcType=REAL},
+      </if>
+      <if test="hc_data != null" >
+        hc_data = #{hc_data,jdbcType=REAL},
+      </if>
+      <if test="pm_data != null" >
+        pm_data = #{pm_data,jdbcType=REAL},
+      </if>
+      <if test="wind_speed != null" >
+        wind_speed = #{wind_speed,jdbcType=REAL},
+      </if>
+      <if test="wind_direction != null" >
+        wind_direction = #{wind_direction,jdbcType=REAL},
+      </if>
+      <if test="temp != null" >
+        temp = #{temp,jdbcType=REAL},
+      </if>
+      <if test="hum != null" >
+        hum = #{hum,jdbcType=REAL},
+      </if>
+      <if test="pressure != null" >
+        pressure = #{pressure,jdbcType=REAL},
+      </if>
+      <if test="test_address != null" >
+        test_address = #{test_address,jdbcType=VARCHAR},
+      </if>
+      <if test="road_way != null" >
+        road_way = #{road_way,jdbcType=VARCHAR},
+      </if>
+      <if test="test_result != null" >
+        test_result = #{test_result,jdbcType=VARCHAR},
+      </if>
+      <if test="is_black != null" >
+        is_black = #{is_black,jdbcType=VARCHAR},
+      </if>
+      <if test="car_type != null" >
+        car_type = #{car_type,jdbcType=VARCHAR},
+      </if>
+      <if test="created_at != null" >
+        created_at = #{created_at,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updated_at != null" >
+        updated_at = #{updated_at,jdbcType=TIMESTAMP},
+      </if>
+      <if test="picture_url != null" >
+        picture_url = #{picture_url,jdbcType=VARCHAR},
+      </if>
+      <if test="tele_times != null" >
+        tele_times = #{tele_times,jdbcType=VARCHAR},
+      </if>
+      <if test="car_picture != null" >
+        car_picture = #{car_picture,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.hzf.mq.entity.DDataMinCars" >
+    update d_data_min_cars
+    set station_id = #{station_id,jdbcType=VARCHAR},
+      data_code = #{data_code,jdbcType=VARCHAR},
+      test_time = #{test_time,jdbcType=VARCHAR},
+      plate_umber = #{plate_umber,jdbcType=VARCHAR},
+      plate_color = #{plate_color,jdbcType=VARCHAR},
+      car_speed = #{car_speed,jdbcType=REAL},
+      car_accel = #{car_accel,jdbcType=REAL},
+      car_vsp = #{car_vsp,jdbcType=REAL},
+      no_data = #{no_data,jdbcType=REAL},
+      co2_data = #{co2_data,jdbcType=REAL},
+      co_data = #{co_data,jdbcType=REAL},
+      hc_data = #{hc_data,jdbcType=REAL},
+      pm_data = #{pm_data,jdbcType=REAL},
+      wind_speed = #{wind_speed,jdbcType=REAL},
+      wind_direction = #{wind_direction,jdbcType=REAL},
+      temp = #{temp,jdbcType=REAL},
+      hum = #{hum,jdbcType=REAL},
+      pressure = #{pressure,jdbcType=REAL},
+      test_address = #{test_address,jdbcType=VARCHAR},
+      road_way = #{road_way,jdbcType=VARCHAR},
+      test_result = #{test_result,jdbcType=VARCHAR},
+      is_black = #{is_black,jdbcType=VARCHAR},
+      car_type = #{car_type,jdbcType=VARCHAR},
+      created_at = #{created_at,jdbcType=TIMESTAMP},
+      updated_at = #{updated_at,jdbcType=TIMESTAMP},
+      picture_url = #{picture_url,jdbcType=VARCHAR},
+      tele_times = #{tele_times,jdbcType=VARCHAR},
+      car_picture = #{car_picture,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hzf.mq.entity.DDataMinCars" >
+    update d_data_min_cars
+    set station_id = #{station_id,jdbcType=VARCHAR},
+      data_code = #{data_code,jdbcType=VARCHAR},
+      test_time = #{test_time,jdbcType=VARCHAR},
+      plate_umber = #{plate_umber,jdbcType=VARCHAR},
+      plate_color = #{plate_color,jdbcType=VARCHAR},
+      car_speed = #{car_speed,jdbcType=REAL},
+      car_accel = #{car_accel,jdbcType=REAL},
+      car_vsp = #{car_vsp,jdbcType=REAL},
+      no_data = #{no_data,jdbcType=REAL},
+      co2_data = #{co2_data,jdbcType=REAL},
+      co_data = #{co_data,jdbcType=REAL},
+      hc_data = #{hc_data,jdbcType=REAL},
+      pm_data = #{pm_data,jdbcType=REAL},
+      wind_speed = #{wind_speed,jdbcType=REAL},
+      wind_direction = #{wind_direction,jdbcType=REAL},
+      temp = #{temp,jdbcType=REAL},
+      hum = #{hum,jdbcType=REAL},
+      pressure = #{pressure,jdbcType=REAL},
+      test_address = #{test_address,jdbcType=VARCHAR},
+      road_way = #{road_way,jdbcType=VARCHAR},
+      test_result = #{test_result,jdbcType=VARCHAR},
+      is_black = #{is_black,jdbcType=VARCHAR},
+      car_type = #{car_type,jdbcType=VARCHAR},
+      created_at = #{created_at,jdbcType=TIMESTAMP},
+      updated_at = #{updated_at,jdbcType=TIMESTAMP},
+      picture_url = #{picture_url,jdbcType=VARCHAR},
+      tele_times = #{tele_times,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
